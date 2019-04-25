@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let userName = "denis"
+    let userName = "Denis"
     var password = "123"
     
     @IBOutlet weak var loginTextField: UITextField!
@@ -19,10 +19,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var signInButton: UIButton!
     
+    @IBAction func loginRecovery(_ sender: UIButton) {
+         showAlert(title: "Login recovery", message: "Your Login is \(userName)")
+    }
     
     @IBAction func passwordRecovery(_ sender: UIButton) {
-        let alertController = UIAlertController(title:"сброс пароля", message:"хотите сбросить пароль?", preferredStyle: .alert)
-        let accept = UIAlertAction(title: "sbros", style: .default) {
+        let alertController = UIAlertController(title:"Password reset", message:"Want to reset your password?", preferredStyle: .alert)
+        let accept = UIAlertAction(title: " reset", style: .default) {
             action in
             self.password = "1234"
             self.showAlert(title: "new pass", message: "`your new pass is \(self.password)")
@@ -38,14 +41,14 @@ class ViewController: UIViewController {
     }
     @IBAction func signIn(_ sender: UIButton) {
         if loginTextField.text!.isEmpty && passwordTextField.text!.isEmpty {
-            showAlert(title: " Ошибка", message: "Полya логин и пароль не может быть пустыми")
+            showAlert(title: "Error", message: "Username and password fields can not be empty")
         }
         else if loginTextField.text!.isEmpty {
-            showAlert(title: " Ошибка", message: "Поле логин не может быть пустым")
+            showAlert(title: "Error", message: "Username field can not be empty")
         } else if passwordTextField.text!.isEmpty {
-            showAlert(title: " Ошибка", message: "Поле gfhjkm не может быть пустым")
+            showAlert(title: "Error", message: "Password field can not be empty")
         } else { if loginTextField.text! != userName || passwordTextField.text! != password {
-            showAlert(title: " Ошибка", message: "логин или пароль введены неверно")
+            showAlert(title: "Error", message: "Username or password entered incorrectly")
             }
         else {
             performSegue(withIdentifier: "successLogin", sender: self)}
@@ -56,11 +59,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         loginTextField.leftView?.translatesAutoresizingMaskIntoConstraints=false
-        //        loginTextField.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        //        loginTextField.heightAnchor.constraint(equalToConstant: 50).isActive=true
-        
         loginTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        let imageView = UIImageView(image: UIImage(named: "Login"))
+        let imageView = UIImageView(image: UIImage(named: "Login-1"))
         loginTextField.leftView!.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: 20).isActive=true
@@ -69,11 +69,8 @@ class ViewController: UIViewController {
         imageView.centerYAnchor.constraint(equalTo: loginTextField.leftView!.centerYAnchor).isActive = true
         loginTextField.leftViewMode = .always
         loginTextField.useBottomBorderWithoutBkgColor()
-        passwordTextField.useBottomBorderWithoutBkgColor()
-        //        imageView.trailingAnchor.constraint(equalTo: loginTextField.leadingAnchor, constant: -40)
         
-        // Do any additional setup after loading the view.
-        // password
+        passwordTextField.useBottomBorderWithoutBkgColor()
         passwordTextField.leftView?.translatesAutoresizingMaskIntoConstraints=false
         passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         let passwordImageView = UIImageView(image: UIImage(named: "password"))
@@ -92,16 +89,14 @@ class ViewController: UIViewController {
     
     func showAlert(title: String, message: String){
         let alertController = UIAlertController(title:title, message:  message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Закрыть", style: .default, handler: nil)
+        let action = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(action)
         present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-}
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    }
 
 extension UITextField {
     
