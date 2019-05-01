@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         let accept = UIAlertAction(title: " reset", style: .default) {
             action in
             self.password = "1234"
-            self.showAlert(title: "new pass", message: "`your new pass is \(self.password)")
+            self.showAlert(title: "new pass", message: "your new pass is \(self.password)")
         }
         let decline = UIAlertAction(title: "decline", style: .default, handler: nil)
         
